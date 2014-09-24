@@ -11,7 +11,7 @@ public class NetworkRequest {
 
 	public static void main(String[] args) throws IOException {
 
-		Socket socket = new Socket("www.amazon.com", 80);
+		Socket socket = new Socket("www.amazon.com", 8080);
 		InputStream in = socket.getInputStream();
 		OutputStream out = socket.getOutputStream();
 		String request = "GET /index.html\n\n";
