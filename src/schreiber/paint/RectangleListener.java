@@ -1,15 +1,9 @@
 package schreiber.paint;
 
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public class ClickListener implements MouseListener {
-
-	Canvas canvas;
-
-	public ClickListener(Canvas canvas) {
-		this.canvas = canvas;
-	}
+public class RectangleListener implements DrawListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -32,12 +26,29 @@ public class ClickListener implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		canvas.clicked(true);
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
 
 	}

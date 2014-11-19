@@ -18,7 +18,8 @@ public class Canvas extends JComponent {
 	private Color color = Color.BLACK;
 	private int strokeWidth = 3;
 
-	BufferedImage image;
+	private BufferedImage image;
+	private DrawListener listener;
 
 	public Canvas() {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
@@ -28,6 +29,8 @@ public class Canvas extends JComponent {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
+
+		listener.drawPreview((Graphics2D) g);
 	}
 
 	public void clicked(boolean b) {
@@ -39,7 +42,7 @@ public class Canvas extends JComponent {
 		this.y = y;
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.setColor(color);
-		g.setStroke(new BasicStroke(strokeWidth));
+		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		if (!clicked) {
 			g.drawLine(x, y, oldX, oldY);
 		}
@@ -48,22 +51,23 @@ public class Canvas extends JComponent {
 		clicked = false;
 	}
 
-	public Color getColor(){
+	public Color getColor() {
 		return color;
 	}
-	
+
 	public void setColor(Color color) {
-		this.color = color;		
+		this.color = color;
 	}
 
 	public void setWidth(int rotation) {
 		// TODO Auto-generated method stub
-		if(rotation < 0)
-		strokeWidth -= rotation;
-		else strokeWidth += rotation;
+		strokeWidth += rotation * -1;
+		if (strokeWidth <= 1) {
+			strokeWidth = 1;
+		}
 	}
-	
-	public int getStrokeWidth(){
+
+	public int getStrokeWidth() {
 		return strokeWidth;
 	}
 
