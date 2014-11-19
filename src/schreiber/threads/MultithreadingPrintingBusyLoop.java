@@ -7,7 +7,7 @@ public class MultithreadingPrintingBusyLoop {
 	public static void main(String[] args[]) throws InterruptedException {
 
 		Thread threads[] = new Thread[5];
-		CountDownLatch latch = new CountDownLatch(5);
+		final CountDownLatch latch = new CountDownLatch(5);
 		for (int i = 0; i < threads.length; i++) {
 			final int current = i;
 			threads[i] = new Thread() {
