@@ -30,7 +30,7 @@ public class Canvas extends JComponent {
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
 
-		listener.drawPreview((Graphics2D) g);
+	//	listener.drawPreview((Graphics2D) g);
 	}
 
 	public void clicked(boolean b) {
@@ -71,4 +71,10 @@ public class Canvas extends JComponent {
 		return strokeWidth;
 	}
 
+	public void clearCanvas(){
+		Graphics2D g = (Graphics2D) image.getGraphics();
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, 800, 600);
+		repaint();
+	}
 }

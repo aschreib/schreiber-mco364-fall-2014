@@ -3,12 +3,12 @@ package schreiber.paint;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
-public class RectangleListener implements DrawListener {
+public class FillRectangleListener implements DrawListener {
 
 	Canvas canvas;
 	Paint paint;
 
-	public RectangleListener(Canvas canvas, Paint paint) {
+	public FillRectangleListener(Canvas canvas, Paint paint) {
 		this.canvas = canvas;
 		this.paint = paint;
 	}
