@@ -4,6 +4,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
@@ -19,7 +21,8 @@ public class Canvas extends JComponent {
 	private int strokeWidth = 3;
 
 	private BufferedImage image;
-	private DrawListener listener;
+	private MouseMotionListener mouseMotionListener;
+	private MouseListener mouseListener;
 
 	public Canvas() {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
@@ -30,7 +33,7 @@ public class Canvas extends JComponent {
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
 
-	//	listener.drawPreview((Graphics2D) g);
+		// listener.drawPreview((Graphics2D) g);
 	}
 
 	public void clicked(boolean b) {
@@ -71,10 +74,27 @@ public class Canvas extends JComponent {
 		return strokeWidth;
 	}
 
-	public void clearCanvas(){
+	public BufferedImage getBufferedImage() {
+		return image;
+	}
+
+	public void setMouseMotionListener(MouseMotionListener m) {
+		this.mouseMotionListener = m;
+	}
+
+	public void setMouseListener(MouseListener m) {
+		this.mouseListener = m;
+	}
+
+	public void clearCanvas() {
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, 800, 600);
 		repaint();
+	}
+
+	public void removeListeners() {
+		this.setMouseListener(null);
+		this.setMouseMotionListener(null);
 	}
 }
