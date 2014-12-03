@@ -2,17 +2,20 @@ package schreiber.paint;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 public class FillOvalListener implements DrawListener {
 
 	Canvas canvas;
 	Paint paint;
 
+	int startX, startY, endX, endY, width, height;
+
 	public FillOvalListener(Canvas canvas, Paint paint) {
 		this.canvas = canvas;
 		this.paint = paint;
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
@@ -32,15 +35,32 @@ public class FillOvalListener implements DrawListener {
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
+	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		startX = e.getX();
+		startY = e.getY();
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
+	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		endX = e.getX();
+		endY = e.getY();
+		width = Math.abs(startX - endX);
+		height = Math.abs(startY - endY);
+		if (startX > endX && startY > endY) {
+			startX = endX;
+			startY = endY;
+		} else if (startX < endX && startY > endY) {
+			startY = endY;
+		} else if (startX > endX && startY < endY) {
+			startX = endX;
+		}
+		BufferedImage image = canvas.getBufferedImage();
+		Graphics2D g = (Graphics2D) image.getGraphics();
+		g.setColor(canvas.getColor());
+		g.fillOval(startX, startY, width, height);
+		canvas.repaint();
 	}
 
 	@Override

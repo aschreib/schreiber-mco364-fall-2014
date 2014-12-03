@@ -1,5 +1,6 @@
 package schreiber.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -52,10 +53,11 @@ public class LineListener implements DrawListener {
 		endX = e.getX();
 		endY = e.getY();
 		BufferedImage image = canvas.getBufferedImage();
-		Graphics g = image.getGraphics();
+		Graphics2D g = (Graphics2D) image.getGraphics();
+		g.setColor(canvas.getColor());
+		g.setStroke(new BasicStroke(canvas.getStrokeWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		g.drawLine(startX, startY, endX, endY);
 		canvas.repaint();
-		// startX, startY, endX, endY = null;
 
 	}
 

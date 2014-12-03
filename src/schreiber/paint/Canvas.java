@@ -45,7 +45,8 @@ public class Canvas extends JComponent {
 		this.y = y;
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.setColor(color);
-		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND,
+				BasicStroke.JOIN_ROUND));
 		if (!clicked) {
 			g.drawLine(x, y, oldX, oldY);
 		}
@@ -67,6 +68,9 @@ public class Canvas extends JComponent {
 		strokeWidth += rotation * -1;
 		if (strokeWidth <= 1) {
 			strokeWidth = 1;
+		}
+		if (strokeWidth >= 50) {
+			strokeWidth = 50;
 		}
 	}
 

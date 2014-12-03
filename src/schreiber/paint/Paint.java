@@ -38,7 +38,8 @@ public class Paint extends JFrame implements ChangeListener {
 
 		chooseButton = new JButton("Choose Color");
 		chooseButton.addActionListener(new ChooseButtonListener(canvas, this));
-		strokeLabel = new JLabel("Current Stroke Width:" + canvas.getStrokeWidth());
+		strokeLabel = new JLabel("Current Stroke Width:"
+				+ canvas.getStrokeWidth());
 		strokeLabel.setHorizontalAlignment(0);
 		clearButton = new JButton("Clear Screen");
 		clearButton.addActionListener(new ClearButtonListener(canvas));
@@ -54,13 +55,16 @@ public class Paint extends JFrame implements ChangeListener {
 		JButton lineButton = new JButton("Line");
 		lineButton.addActionListener(new LineButtonListener(canvas, this));
 		JButton rectangleButton = new JButton("Rectangle");
-		rectangleButton.addActionListener(new RectangleButtonListener(canvas, this));
+		rectangleButton.addActionListener(new RectangleButtonListener(canvas,
+				this));
 		JButton ovalButton = new JButton("Oval");
 		ovalButton.addActionListener(new OvalButtonListener(canvas, this));
 		JButton fillRectangleButton = new JButton("Fill Rectangle");
-		fillRectangleButton.addActionListener(new FillRectangleButtonListener(canvas, this));
+		fillRectangleButton.addActionListener(new FillRectangleButtonListener(
+				canvas, this));
 		JButton fillOvalButton = new JButton("Fill Oval");
-		fillOvalButton.addActionListener(new FillOvalButtonListener(canvas, this));
+		fillOvalButton.addActionListener(new FillOvalButtonListener(canvas,
+				this));
 
 		JPanel infoPanelTop = new JPanel();
 		infoPanelTop.setLayout(new GridLayout());
@@ -102,7 +106,8 @@ public class Paint extends JFrame implements ChangeListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		Color newColor = JColorChooser.showDialog(colorChooser, "Choose Color", Color.BLACK);
+		Color newColor = JColorChooser.showDialog(colorChooser, "Choose Color",
+				Color.BLACK);
 		if (newColor != null) {
 			color = newColor;
 		}
@@ -125,7 +130,8 @@ class ChooseButtonListener implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		Color color = JColorChooser.showDialog(canvas, "Choose Color", Color.BLACK);
+		Color color = JColorChooser.showDialog(canvas, "Choose Color",
+				Color.BLACK);
 		if (color != null) {
 			canvas.setColor(color);
 			paint.chooseButton.setForeground(canvas.getColor());
@@ -252,7 +258,8 @@ class FillRectangleButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		canvas.removeMouseListener(paint.drawListener);
 		canvas.removeMouseMotionListener(paint.drawListener);
-		FillRectangleListener listener = new FillRectangleListener(canvas, paint);
+		FillRectangleListener listener = new FillRectangleListener(canvas,
+				paint);
 		paint.setDrawListener(listener);
 		canvas.addMouseMotionListener(listener);
 		canvas.addMouseListener(listener);
