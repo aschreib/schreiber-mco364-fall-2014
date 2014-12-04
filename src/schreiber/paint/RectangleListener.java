@@ -10,7 +10,7 @@ public class RectangleListener implements DrawListener {
 	Canvas canvas;
 	Paint paint;
 
-	int startX, startY, endX, endY, width, height;
+	Integer startX, startY, endX, endY, width, height;
 
 	public RectangleListener(Canvas canvas, Paint paint) {
 		this.canvas = canvas;
@@ -40,6 +40,8 @@ public class RectangleListener implements DrawListener {
 		// TODO Auto-generated method stub
 		startX = e.getX();
 		startY = e.getY();
+		endX = startX;
+		endY = startY;
 	}
 
 	@Override
@@ -49,14 +51,8 @@ public class RectangleListener implements DrawListener {
 		endY = e.getY();
 		width = Math.abs(startX - endX);
 		height = Math.abs(startY - endY);
-		if (startX > endX && startY > endY) {
-			startX = endX;
-			startY = endY;
-		} else if (startX < endX && startY > endY) {
-			startY = endY;
-		} else if (startX > endX && startY < endY) {
-			startX = endX;
-		}
+		startX = startX < endX ? startX : endX;
+		startY = startY < endY ? startY : endY;
 		BufferedImage image = canvas.getBufferedImage();
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.setColor(canvas.getColor());
@@ -66,9 +62,10 @@ public class RectangleListener implements DrawListener {
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent arg0) {
+	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		endX = e.getX();
+		endY = e.getY();
 	}
 
 	@Override
@@ -80,7 +77,16 @@ public class RectangleListener implements DrawListener {
 	@Override
 	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
-
+		Integer x1 = startX;
+		Integer y1 = startY;
+		width = Math.abs(startX - endX);
+		height = Math.abs(startY - endY);
+		x1 = startX < endX ? startX : endX;
+		y1 = startY < endY ? startY : endY;
+		g.setColor(canvas.getColor());
+		g.setStroke(new BasicStroke(canvas.getStrokeWidth()));
+		g.drawRect(x1, y1, width, height);
+		canvas.repaint();
 	}
 
 }

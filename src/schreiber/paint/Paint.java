@@ -17,6 +17,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class Paint extends JFrame implements ChangeListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6939766772751318748L;
 
 	JColorChooser colorChooser;
 	Color color = Color.BLACK;
@@ -84,12 +88,20 @@ public class Paint extends JFrame implements ChangeListener {
 
 		add(canvas, BorderLayout.CENTER);
 
+		// begin with a pencil listener
+		drawListener = canvas.getDrawListener();
+		canvas.addMouseMotionListener(drawListener);
+		canvas.addMouseListener(drawListener);
 		canvas.addMouseWheelListener(new WheelListener(canvas, this));
 	}
 
-	public void setDrawListener(DrawListener d) {
-		this.drawListener = d;
-	}
+	// public void setDrawListener(DrawListener d) {
+	// this.drawListener = d;
+	// }
+	//
+	// public DrawListener getDrawListener() {
+	// return drawListener;
+	// }
 
 	public void setMouseListener(MouseListener m) {
 		this.mouseListener = m;
@@ -168,10 +180,10 @@ class PencilButtonListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		canvas.removeMouseListener(paint.drawListener);
-		canvas.removeMouseMotionListener(paint.drawListener);
+		canvas.removeMouseListener(canvas.getDrawListener());
+		canvas.removeMouseMotionListener(canvas.getDrawListener());
 		PencilListener listener = new PencilListener(canvas, paint);
-		paint.setDrawListener(listener);
+		canvas.setDrawListener(listener);
 		canvas.addMouseMotionListener(listener);
 		canvas.addMouseListener(listener);
 	}
@@ -190,10 +202,10 @@ class LineButtonListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		canvas.removeMouseListener(paint.drawListener);
-		canvas.removeMouseMotionListener(paint.drawListener);
+		canvas.removeMouseListener(canvas.getDrawListener());
+		canvas.removeMouseMotionListener(canvas.getDrawListener());
 		LineListener listener = new LineListener(canvas, paint);
-		paint.setDrawListener(listener);
+		canvas.setDrawListener(listener);
 		canvas.addMouseMotionListener(listener);
 		canvas.addMouseListener(listener);
 	}
@@ -212,10 +224,10 @@ class RectangleButtonListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		canvas.removeMouseListener(paint.drawListener);
-		canvas.removeMouseMotionListener(paint.drawListener);
+		canvas.removeMouseListener(canvas.getDrawListener());
+		canvas.removeMouseMotionListener(canvas.getDrawListener());
 		RectangleListener listener = new RectangleListener(canvas, paint);
-		paint.setDrawListener(listener);
+		canvas.setDrawListener(listener);
 		canvas.addMouseMotionListener(listener);
 		canvas.addMouseListener(listener);
 	}
@@ -234,10 +246,10 @@ class OvalButtonListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		canvas.removeMouseListener(paint.drawListener);
-		canvas.removeMouseMotionListener(paint.drawListener);
+		canvas.removeMouseListener(canvas.getDrawListener());
+		canvas.removeMouseMotionListener(canvas.getDrawListener());
 		OvalListener listener = new OvalListener(canvas, paint);
-		paint.setDrawListener(listener);
+		canvas.setDrawListener(listener);
 		canvas.addMouseMotionListener(listener);
 		canvas.addMouseListener(listener);
 	}
@@ -256,11 +268,11 @@ class FillRectangleButtonListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		canvas.removeMouseListener(paint.drawListener);
-		canvas.removeMouseMotionListener(paint.drawListener);
+		canvas.removeMouseListener(canvas.getDrawListener());
+		canvas.removeMouseMotionListener(canvas.getDrawListener());
 		FillRectangleListener listener = new FillRectangleListener(canvas,
 				paint);
-		paint.setDrawListener(listener);
+		canvas.setDrawListener(listener);
 		canvas.addMouseMotionListener(listener);
 		canvas.addMouseListener(listener);
 	}
@@ -279,10 +291,10 @@ class FillOvalButtonListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		canvas.removeMouseListener(paint.drawListener);
-		canvas.removeMouseMotionListener(paint.drawListener);
+		canvas.removeMouseListener(canvas.getDrawListener());
+		canvas.removeMouseMotionListener(canvas.getDrawListener());
 		FillOvalListener listener = new FillOvalListener(canvas, paint);
-		paint.setDrawListener(listener);
+		canvas.setDrawListener(listener);
 		canvas.addMouseMotionListener(listener);
 		canvas.addMouseListener(listener);
 	}
