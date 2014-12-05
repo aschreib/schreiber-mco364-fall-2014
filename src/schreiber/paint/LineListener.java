@@ -7,17 +7,12 @@ import java.awt.image.BufferedImage;
 
 public class LineListener implements DrawListener {
 
-	Canvas canvas;
-	Paint paint;
+	private Canvas canvas;
 
-	int startX;
-	int startY;
-	int endX;
-	int endY;
+	private int startX, startY, endX, endY;
 
-	public LineListener(Canvas canvas, Paint paint) {
+	public LineListener(Canvas canvas) {
 		this.canvas = canvas;
-		this.paint = paint;
 	}
 
 	@Override
@@ -41,6 +36,7 @@ public class LineListener implements DrawListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
+		canvas.cleared(false);
 		startX = e.getX();
 		startY = e.getY();
 		endX = startX;
@@ -59,6 +55,7 @@ public class LineListener implements DrawListener {
 		g.setStroke(new BasicStroke(canvas.getStrokeWidth(),
 				BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		g.drawLine(startX, startY, endX, endY);
+		canvas.cleared(true);
 		canvas.repaint();
 
 	}

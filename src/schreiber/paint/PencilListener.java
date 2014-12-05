@@ -5,12 +5,10 @@ import java.awt.event.MouseEvent;
 
 public class PencilListener implements DrawListener {
 
-	Canvas canvas;
-	Paint paint;
+	private Canvas canvas;
 
-	public PencilListener(Canvas canvas, Paint paint) {
+	public PencilListener(Canvas canvas) {
 		this.canvas = canvas;
-		this.paint = paint;
 	}
 
 	@Override

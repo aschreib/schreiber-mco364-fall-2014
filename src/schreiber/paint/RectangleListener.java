@@ -7,14 +7,12 @@ import java.awt.image.BufferedImage;
 
 public class RectangleListener implements DrawListener {
 
-	Canvas canvas;
-	Paint paint;
+	private Canvas canvas;
 
-	Integer startX, startY, endX, endY, width, height;
+	private Integer startX, startY, endX, endY, width, height;
 
-	public RectangleListener(Canvas canvas, Paint paint) {
+	public RectangleListener(Canvas canvas) {
 		this.canvas = canvas;
-		this.paint = paint;
 	}
 
 	@Override
@@ -38,6 +36,7 @@ public class RectangleListener implements DrawListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
+		canvas.cleared(false);
 		startX = e.getX();
 		startY = e.getY();
 		endX = startX;
@@ -58,6 +57,7 @@ public class RectangleListener implements DrawListener {
 		g.setColor(canvas.getColor());
 		g.setStroke(new BasicStroke(canvas.getStrokeWidth()));
 		g.drawRect(startX, startY, width, height);
+		canvas.cleared(true);
 		canvas.repaint();
 	}
 

@@ -7,14 +7,12 @@ import java.awt.image.BufferedImage;
 
 public class OvalListener implements DrawListener {
 
-	Canvas canvas;
-	Paint paint;
+	private Canvas canvas;
 
-	int startX, startY, endX, endY, width, height;
+	private int startX, startY, endX, endY, width, height;
 
-	public OvalListener(Canvas canvas, Paint paint) {
+	public OvalListener(Canvas canvas) {
 		this.canvas = canvas;
-		this.paint = paint;
 	}
 
 	@Override
@@ -38,6 +36,7 @@ public class OvalListener implements DrawListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
+		canvas.cleared(false);
 		startX = e.getX();
 		startY = e.getY();
 		endX = startX;
@@ -51,14 +50,15 @@ public class OvalListener implements DrawListener {
 		endY = e.getY();
 		width = Math.abs(startX - endX);
 		height = Math.abs(startY - endY);
-		startX = startX < endX ? startX : endX;
-		startY = startY < endY ? startY : endY;
+		Integer x1 = startX < endX ? startX : endX;
+		Integer y1 = startY < endY ? startY : endY;
 		BufferedImage image = canvas.getBufferedImage();
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.setColor(canvas.getColor());
 		g.setStroke(new BasicStroke(canvas.getStrokeWidth(),
 				BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-		g.drawOval(startX, startY, width, height);
+		g.drawOval(x1, y1, width, height);
+		canvas.cleared(true);
 		canvas.repaint();
 	}
 

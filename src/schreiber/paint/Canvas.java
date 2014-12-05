@@ -9,19 +9,17 @@ import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
 
 public class Canvas extends JComponent {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 5557512110330206586L;
 
 	private int oldX = 0;
 	private int oldY = 0;
 	private boolean clicked;
+	private boolean cleared;
 	private Color color = Color.BLACK;
 	private int strokeWidth = 3;
 
-	private Paint paint;
-	private DrawListener listener = new PencilListener(this, paint);
+	private DrawListener listener = new PencilListener(this);
 	private BufferedImage image;
 
 	public Canvas() {
@@ -32,7 +30,9 @@ public class Canvas extends JComponent {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
-		listener.drawPreview((Graphics2D) g);
+		if (!cleared) {
+			listener.drawPreview((Graphics2D) g);
+		}
 	}
 
 	public DrawListener getDrawListener() {
@@ -45,6 +45,10 @@ public class Canvas extends JComponent {
 
 	public void clicked(boolean b) {
 		clicked = b;
+	}
+
+	public void cleared(boolean b) {
+		cleared = b;
 	}
 
 	public void setPoint(int x, int y) {
@@ -87,6 +91,7 @@ public class Canvas extends JComponent {
 	}
 
 	public void clearCanvas() {
+		cleared(true);
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		repaint();
 	}
