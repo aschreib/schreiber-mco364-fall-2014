@@ -65,6 +65,7 @@ public class FillOvalListener implements DrawListener {
 		// TODO Auto-generated method stub
 		endX = e.getX();
 		endY = e.getY();
+		canvas.repaint();
 	}
 
 	@Override
@@ -76,12 +77,10 @@ public class FillOvalListener implements DrawListener {
 	@Override
 	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
-		Integer x1 = startX;
-		Integer y1 = startY;
 		width = Math.abs(startX - endX);
 		height = Math.abs(startY - endY);
-		x1 = startX < endX ? startX : endX;
-		y1 = startY < endY ? startY : endY;
+		Integer x1 = startX < endX ? startX : endX;
+		Integer y1 = startY < endY ? startY : endY;
 		g.setColor(canvas.getColor());
 		g.setStroke(new BasicStroke(canvas.getStrokeWidth()));
 		g.fillOval(x1, y1, width, height);

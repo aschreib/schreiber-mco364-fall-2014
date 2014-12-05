@@ -4,8 +4,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
@@ -71,7 +69,6 @@ public class Canvas extends JComponent {
 	}
 
 	public void setWidth(int rotation) {
-		// TODO Auto-generated method stub
 		strokeWidth += rotation * -1;
 		if (strokeWidth <= 1) {
 			strokeWidth = 1;
@@ -89,22 +86,8 @@ public class Canvas extends JComponent {
 		return image;
 	}
 
-	public void setMouseMotionListener(MouseMotionListener m) {
-	}
-
-	public void setMouseListener(MouseListener m) {
-	}
-
 	public void clearCanvas() {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		// Graphics2D g = (Graphics2D) image.getGraphics();
-		// g.setColor(Color.WHITE);
-		// g.fillRect(0, 0, 800, 600);
 		repaint();
-	}
-
-	public void removeListeners() {
-		this.setMouseListener(null);
-		this.setMouseMotionListener(null);
 	}
 }

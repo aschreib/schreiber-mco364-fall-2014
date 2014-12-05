@@ -68,6 +68,7 @@ public class LineListener implements DrawListener {
 		// TODO Auto-generated method stub
 		endX = e.getX();
 		endY = e.getY();
+		canvas.repaint();
 	}
 
 	@Override
