@@ -33,7 +33,7 @@ public class Paint extends JFrame implements ChangeListener {
 		setLocationRelativeTo(null);
 		// setLayout(new BorderLayout()); - it's default
 
-		Canvas canvas = new Canvas();
+		final Canvas canvas = new Canvas();
 
 		setChooseButton(new JButton("Choose Color"));
 		getChooseButton().addActionListener(new ActionListener() {
@@ -41,7 +41,8 @@ public class Paint extends JFrame implements ChangeListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Color color = JColorChooser.showDialog(canvas, "Choose Color", Color.BLACK);
+				Color color = JColorChooser.showDialog(canvas, "Choose Color",
+						Color.BLACK);
 				if (color != null) {
 					canvas.setColor(color);
 					getChooseButton().setForeground(canvas.getColor());
@@ -49,7 +50,8 @@ public class Paint extends JFrame implements ChangeListener {
 
 			}
 		});
-		setStrokeLabel(new JLabel("Current Stroke Width:" + canvas.getStrokeWidth()));
+		setStrokeLabel(new JLabel("Current Stroke Width:"
+				+ canvas.getStrokeWidth()));
 		getStrokeLabel().setHorizontalAlignment(0);
 		clearButton = new JButton("Clear Screen");
 		clearButton.addActionListener(new ActionListener() {
@@ -77,9 +79,12 @@ public class Paint extends JFrame implements ChangeListener {
 		JButton ovalButton = new JButton("Oval");
 		ovalButton.addActionListener(new ShapeButtonListener(canvas, 4));
 		JButton fillRectangleButton = new JButton("Fill Rectangle");
-		fillRectangleButton.addActionListener(new ShapeButtonListener(canvas, 5));
+		fillRectangleButton
+				.addActionListener(new ShapeButtonListener(canvas, 5));
 		JButton fillOvalButton = new JButton("Fill Oval");
 		fillOvalButton.addActionListener(new ShapeButtonListener(canvas, 6));
+		JButton bucketFillButton = new JButton("Bucket Fill");
+		bucketFillButton.addActionListener(new ShapeButtonListener(canvas, 7));
 
 		JPanel infoPanelTop = new JPanel();
 		infoPanelTop.setLayout(new GridLayout());
@@ -90,6 +95,7 @@ public class Paint extends JFrame implements ChangeListener {
 		infoPanelTop.add(ovalButton);
 		infoPanelTop.add(fillRectangleButton);
 		infoPanelTop.add(fillOvalButton);
+		infoPanelTop.add(bucketFillButton);
 
 		add(infoPanelTop, BorderLayout.PAGE_START);
 		add(infoPanelBottom, BorderLayout.PAGE_END);
@@ -119,7 +125,8 @@ public class Paint extends JFrame implements ChangeListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		Color newColor = JColorChooser.showDialog(colorChooser, "Choose Color", Color.BLACK);
+		Color newColor = JColorChooser.showDialog(colorChooser, "Choose Color",
+				Color.BLACK);
 		if (newColor != null) {
 		}
 	}

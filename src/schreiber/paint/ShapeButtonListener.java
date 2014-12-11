@@ -39,6 +39,8 @@ public class ShapeButtonListener implements ActionListener {
 		case 6:
 			listener = new FillOvalListener(canvas);
 			break;
+		case 7:
+			listener = new BucketFillListener(canvas);
 		}
 
 		canvas.setDrawListener(listener);

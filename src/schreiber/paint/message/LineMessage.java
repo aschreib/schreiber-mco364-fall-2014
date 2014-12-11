@@ -1,6 +1,6 @@
 package schreiber.paint.message;
 
-import java.awt.Color;
+import java.awt.Graphics2D;
 
 public class LineMessage implements PaintMessage {
 
@@ -8,10 +8,11 @@ public class LineMessage implements PaintMessage {
 	private int y1;
 	private int x2;
 	private int y2;
-	private Color color;
+	private int color;
 	private int strokeWidth;
 
-	public LineMessage(int x1, int y1, int x2, int y2, Color color, int strokeWidth) {
+	public LineMessage(int x1, int y1, int x2, int y2, int color,
+			int strokeWidth) {
 		super();
 		this.x1 = x1;
 		this.y1 = y1;
@@ -21,7 +22,8 @@ public class LineMessage implements PaintMessage {
 		this.strokeWidth = strokeWidth;
 	}
 
-	public LineMessage(String string, String string2, String string3, String string4, String string5, String string6) {
+	public LineMessage(String string, String string2, String string3,
+			String string4, String string5, String string6) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -57,11 +59,11 @@ public class LineMessage implements PaintMessage {
 		this.y2 = y2;
 	}
 
-	public Color getColor() {
+	public int getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(int color) {
 		this.color = color;
 	}
 
@@ -75,7 +77,14 @@ public class LineMessage implements PaintMessage {
 
 	@Override
 	public String toString() {
-		return "LineMessage " + x1 + " " + y1 + " " + x2 + " " + y2 + " " + color + " " + strokeWidth + "\n";
+		return "LineMessage " + x1 + " " + y1 + " " + x2 + " " + y2 + " "
+				+ color + " " + strokeWidth + "\n";
+	}
+
+	@Override
+	public void apply(Graphics2D g) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

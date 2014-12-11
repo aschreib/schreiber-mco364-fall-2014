@@ -1,6 +1,6 @@
 package schreiber.paint.message;
 
-import java.awt.Color;
+import java.awt.Graphics2D;
 
 public class ShapeMessage implements PaintMessage {
 
@@ -9,12 +9,12 @@ public class ShapeMessage implements PaintMessage {
 	private int y;
 	private int width;
 	private int height;
-	private Color color;
+	private int color;
 	private int strokeWidth;
 	private boolean fill;
 
-	public ShapeMessage(String shapeType, int x, int y, int width, int height, Color color, int strokeWidth,
-			boolean fill) {
+	public ShapeMessage(String shapeType, int x, int y, int width, int height,
+			int color, int strokeWidth, boolean fill) {
 		super();
 		this.shapeType = shapeType;
 		this.x = x;
@@ -66,11 +66,11 @@ public class ShapeMessage implements PaintMessage {
 		this.height = height;
 	}
 
-	public Color getColor() {
+	public int getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(int color) {
 		this.color = color;
 	}
 
@@ -92,8 +92,14 @@ public class ShapeMessage implements PaintMessage {
 
 	@Override
 	public String toString() {
-		return "ShapeMessage " + x + " " + y + " " + width + " " + height + " " + color + " " + strokeWidth + " "
-				+ fill + "\n";
+		return "ShapeMessage " + x + " " + y + " " + width + " " + height + " "
+				+ color + " " + strokeWidth + " " + fill + "\n";
+	}
+
+	@Override
+	public void apply(Graphics2D g) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
