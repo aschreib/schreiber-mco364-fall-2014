@@ -23,7 +23,7 @@ public class BucketFillListener implements DrawListener {
 		image = canvas.getBufferedImage();
 	}
 
-	public void Fill(int x, int y, int color, int colorClicked) {
+	public void Fill(int x, int y, int fillColor, int colorClicked) {
 		// create queue of points that will store all the points to be filled
 		Queue<Point> queue = new LinkedList<Point>();
 		boolean[][] alreadyQueued = new boolean[800][600];
@@ -34,9 +34,9 @@ public class BucketFillListener implements DrawListener {
 			Point p = queue.remove();
 			// bounds check and color check
 			if (validCoordinate(p.x, p.y)) {
-				if (image.getRGB(p.x, p.y) != color
-						&& image.getRGB(p.x, p.y) == colorClicked) {
-					image.setRGB(p.x, p.y, color);
+				int pixelColor = image.getRGB(p.x, p.y);
+				if (pixelColor != fillColor && pixelColor == colorClicked) {
+					image.setRGB(p.x, p.y, fillColor);
 					if (validCoordinate(p.x - 1, p.y)
 							&& !alreadyQueued[p.x - 1][p.y]) {
 						queue.add(new Point(p.x - 1, p.y));
@@ -57,12 +57,10 @@ public class BucketFillListener implements DrawListener {
 						queue.add(new Point(p.x, p.y + 1));
 						alreadyQueued[p.x][p.y + 1] = true;
 					}
-
-					System.out.println(queue.peek());
+					canvas.repaint();
+					// System.out.println(queue.peek());
 				}
-
 			}
-
 		}
 	}
 
@@ -95,12 +93,8 @@ public class BucketFillListener implements DrawListener {
 		y = e.getY();
 		color = canvas.getColor();
 		colorRGB = color.getRGB();
-		System.out.println(color.getRGB());
 		colorClicked = image.getRGB(x, y);
-		System.out.println(colorClicked);
 		Fill(x, y, colorRGB, colorClicked);
-		canvas.repaint();
-		System.out.println("done");
 	}
 
 	@Override
