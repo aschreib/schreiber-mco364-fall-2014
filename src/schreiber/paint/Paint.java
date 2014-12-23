@@ -58,7 +58,7 @@ public class Paint extends JFrame implements ChangeListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				canvas.clear();
+				canvas.clear(canvas.getLayerNumber() - 1);
 			}
 
 		});

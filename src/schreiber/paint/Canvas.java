@@ -23,28 +23,28 @@ public class Canvas extends JComponent {
 	private BufferedImage[] layers = new BufferedImage[4];
 
 	private DrawListener listener = new PencilListener(this);
-	private BufferedImage image = layers[layerNumber - 1];
+	private BufferedImage currentImage;
 
 	public Canvas() {
 		for (int i = 0; i < 4; i++) {
 			layers[i] = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-			clear();
+			clear(i);
 		}
-		image = layers[0];
+		currentImage = layers[0];
 	}
 
 	public BufferedImage getImage() {
-		return image;
+		return currentImage;
 	}
 
 	public void setImage(BufferedImage image) {
-		this.image = image;
+		this.currentImage = image;
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 0, 0, null);
+		g.drawImage(currentImage, 0, 0, null);
 		if (!cleared) {
 			listener.drawPreview((Graphics2D) g);
 		}
@@ -67,7 +67,7 @@ public class Canvas extends JComponent {
 	}
 
 	public void setPoint(int x, int y) {
-		Graphics2D g = (Graphics2D) image.getGraphics();
+		Graphics2D g = (Graphics2D) currentImage.getGraphics();
 		g.setColor(color);
 		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND,
 				BasicStroke.JOIN_ROUND));
@@ -102,17 +102,17 @@ public class Canvas extends JComponent {
 	}
 
 	public BufferedImage getBufferedImage() {
-		return image;
+		return currentImage;
 	}
 
 	public void setBufferedImage(int number) {
-		image = layers[number - 1];
+		currentImage = layers[number - 1];
 	}
 
-	public void clear() {
+	public void clear(int number) {
 		cleared(true);
-		Graphics2D g = layers[layerNumber - 1].createGraphics();
-		if (layerNumber - 1 == 0) {
+		Graphics2D g = layers[number].createGraphics();
+		if (number == 0) {
 			g.setPaint(Color.WHITE);
 			g.fillRect(0, 0, 800, 600);
 		} else {
