@@ -28,22 +28,9 @@ public class Canvas extends JComponent {
 	public Canvas() {
 		for (int i = 0; i < 4; i++) {
 			layers[i] = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-			setBackground(i);
+			clear();
 		}
 		image = layers[0];
-	}
-
-	public void setBackground(int number) {
-		Graphics2D g = layers[number].createGraphics();
-		g.setPaint(Color.WHITE);
-		if (number == 0) {
-			g.fillRect(0, 0, 800, 600);
-		} else {
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR));
-			g.fillRect(0, 0, 800, 600);
-			// reset composite
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
-		}
 	}
 
 	public BufferedImage getImage() {
@@ -122,10 +109,21 @@ public class Canvas extends JComponent {
 		image = layers[number - 1];
 	}
 
-	public void clearCanvas() {
+	public void clear() {
 		cleared(true);
-		layers[layerNumber - 1] = new BufferedImage(800, 600,
-				BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = layers[layerNumber - 1].createGraphics();
+		if (layerNumber - 1 == 0) {
+			g.setPaint(Color.WHITE);
+			g.fillRect(0, 0, 800, 600);
+		} else {
+			g.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR));
+			g.fillRect(0, 0, 800, 600);
+			// reset composite
+			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+		}
+		// layers[layerNumber - 1] = new BufferedImage(800, 600,
+		// BufferedImage.TYPE_INT_ARGB);
+		// setBackground(layerNumber);
 		setBufferedImage(layerNumber);
 		repaint();
 	}
