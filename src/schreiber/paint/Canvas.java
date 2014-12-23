@@ -1,5 +1,6 @@
 package schreiber.paint;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -18,12 +19,39 @@ public class Canvas extends JComponent {
 	private boolean cleared;
 	private Color color = Color.BLACK;
 	private int strokeWidth = 3;
+	private int layerNumber = 1;
+	private BufferedImage[] layers = new BufferedImage[4];
 
 	private DrawListener listener = new PencilListener(this);
-	private BufferedImage image;
+	private BufferedImage image = layers[layerNumber - 1];
 
 	public Canvas() {
-		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+		for (int i = 0; i < 4; i++) {
+			layers[i] = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+			setBackground(i);
+		}
+		image = layers[0];
+	}
+
+	public void setBackground(int number) {
+		Graphics2D g = layers[number].createGraphics();
+		g.setPaint(Color.WHITE);
+		if (number == 0) {
+			g.fillRect(0, 0, 800, 600);
+		} else {
+			g.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR));
+			g.fillRect(0, 0, 800, 600);
+			// reset composite
+			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+		}
+	}
+
+	public BufferedImage getImage() {
+		return image;
+	}
+
+	public void setImage(BufferedImage image) {
+		this.image = image;
 	}
 
 	@Override
@@ -90,9 +118,23 @@ public class Canvas extends JComponent {
 		return image;
 	}
 
+	public void setBufferedImage(int number) {
+		image = layers[number - 1];
+	}
+
 	public void clearCanvas() {
 		cleared(true);
-		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+		layers[layerNumber - 1] = new BufferedImage(800, 600,
+				BufferedImage.TYPE_INT_ARGB);
+		setBufferedImage(layerNumber);
 		repaint();
+	}
+
+	public int getLayerNumber() {
+		return layerNumber;
+	}
+
+	public void setLayerNumber(int number) {
+		layerNumber = number;
 	}
 }

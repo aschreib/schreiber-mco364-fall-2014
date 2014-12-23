@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -24,6 +22,7 @@ public class Paint extends JFrame implements ChangeListener {
 	private JButton chooseButton;
 	private JButton clearButton;
 	private JLabel strokeLabel;
+	private JLabel layerLabel;
 	private DrawListener drawListener;
 
 	public Paint() {
@@ -97,7 +96,36 @@ public class Paint extends JFrame implements ChangeListener {
 		infoPanelTop.add(fillOvalButton);
 		infoPanelTop.add(bucketFillButton);
 
-		add(infoPanelTop, BorderLayout.PAGE_START);
+		JPanel layerPanel = new JPanel();
+		layerPanel.setLayout(new GridLayout());
+
+		layerLabel = new JLabel("Current Layer: 1");
+		layerLabel.setHorizontalAlignment(0);
+		JButton layerOneButton = new JButton("Layer One");
+		layerOneButton.addActionListener(new LayerButtonListener(1, canvas,
+				this));
+		JButton layerTwoButton = new JButton("Layer Two");
+		layerTwoButton.addActionListener(new LayerButtonListener(2, canvas,
+				this));
+		JButton layerThreeButton = new JButton("Layer Three");
+		layerThreeButton.addActionListener(new LayerButtonListener(3, canvas,
+				this));
+		JButton layerFourButton = new JButton("Layer Four");
+		layerFourButton.addActionListener(new LayerButtonListener(4, canvas,
+				this));
+
+		layerPanel.add(layerLabel);
+		layerPanel.add(layerOneButton);
+		layerPanel.add(layerTwoButton);
+		layerPanel.add(layerThreeButton);
+		layerPanel.add(layerFourButton);
+
+		JPanel topPanels = new JPanel();
+		topPanels.setLayout(new GridLayout(2, 1));
+		topPanels.add(infoPanelTop);
+		topPanels.add(layerPanel);
+
+		add(topPanels, BorderLayout.PAGE_START);
 		add(infoPanelBottom, BorderLayout.PAGE_END);
 
 		colorChooser = new JColorChooser();
@@ -110,12 +138,6 @@ public class Paint extends JFrame implements ChangeListener {
 		canvas.addMouseMotionListener(drawListener);
 		canvas.addMouseListener(drawListener);
 		canvas.addMouseWheelListener(new WheelListener(canvas, this));
-	}
-
-	public void setMouseListener(MouseListener m) {
-	}
-
-	public void setMouseMotionListener(MouseMotionListener m) {
 	}
 
 	public static void main(String[] args) {
@@ -150,6 +172,10 @@ public class Paint extends JFrame implements ChangeListener {
 
 	public void setStrokeLabel(JLabel strokeLabel) {
 		this.strokeLabel = strokeLabel;
+	}
+
+	public JLabel getLayerLabel() {
+		return layerLabel;
 	}
 
 }
