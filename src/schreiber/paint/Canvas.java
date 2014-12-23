@@ -44,7 +44,10 @@ public class Canvas extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(currentImage, 0, 0, null);
+		for (int i = 0; i < 4; i++) {
+			g.drawImage(layers[i], 0, 0, null);
+		}
+		// g.drawImage(currentImage, 0, 0, null);
 		if (!cleared) {
 			listener.drawPreview((Graphics2D) g);
 		}
@@ -113,17 +116,14 @@ public class Canvas extends JComponent {
 		cleared(true);
 		Graphics2D g = layers[number].createGraphics();
 		if (number == 0) {
-			g.setPaint(Color.WHITE);
-			g.fillRect(0, 0, 800, 600);
+			layers[number] = new BufferedImage(800, 600,
+					BufferedImage.TYPE_INT_ARGB);
 		} else {
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR));
 			g.fillRect(0, 0, 800, 600);
 			// reset composite
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
 		}
-		// layers[layerNumber - 1] = new BufferedImage(800, 600,
-		// BufferedImage.TYPE_INT_ARGB);
-		// setBackground(layerNumber);
 		setBufferedImage(layerNumber);
 		repaint();
 	}
