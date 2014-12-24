@@ -46,11 +46,11 @@ public class Canvas extends JComponent {
 		super.paintComponent(g);
 		for (int i = 0; i < 4; i++) {
 			g.drawImage(layers[i], 0, 0, null);
+			if (!cleared && i == layerNumber - 1) {
+				listener.drawPreview((Graphics2D) g);
+			}
 		}
-		// g.drawImage(currentImage, 0, 0, null);
-		if (!cleared) {
-			listener.drawPreview((Graphics2D) g);
-		}
+
 	}
 
 	public DrawListener getDrawListener() {
@@ -72,8 +72,7 @@ public class Canvas extends JComponent {
 	public void setPoint(int x, int y) {
 		Graphics2D g = (Graphics2D) currentImage.getGraphics();
 		g.setColor(color);
-		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND,
-				BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		if (!clicked) {
 			g.drawLine(x, y, oldX, oldY);
 		}
@@ -116,8 +115,7 @@ public class Canvas extends JComponent {
 		cleared(true);
 		Graphics2D g = layers[number].createGraphics();
 		if (number == 0) {
-			layers[number] = new BufferedImage(800, 600,
-					BufferedImage.TYPE_INT_ARGB);
+			layers[number] = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		} else {
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR));
 			g.fillRect(0, 0, 800, 600);
