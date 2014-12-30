@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 public class ShapeMessage implements PaintMessage {
 
-	private String shapeType;
+	private ShapeType shapeType;
 	private int x;
 	private int y;
 	private int width;
@@ -13,8 +13,8 @@ public class ShapeMessage implements PaintMessage {
 	private int strokeWidth;
 	private boolean fill;
 
-	public ShapeMessage(String shapeType, int x, int y, int width, int height,
-			int color, int strokeWidth, boolean fill) {
+	public ShapeMessage(ShapeType shapeType, int x, int y, int width,
+			int height, int color, int strokeWidth, boolean fill) {
 		super();
 		this.shapeType = shapeType;
 		this.x = x;
@@ -26,11 +26,11 @@ public class ShapeMessage implements PaintMessage {
 		this.fill = fill;
 	}
 
-	public String getShapeType() {
+	public ShapeType getShapeType() {
 		return shapeType;
 	}
 
-	public void setShapeType(String shapeType) {
+	public void setShapeType(ShapeType shapeType) {
 		this.shapeType = shapeType;
 	}
 
@@ -92,8 +92,8 @@ public class ShapeMessage implements PaintMessage {
 
 	@Override
 	public String toString() {
-		return "ShapeMessage " + x + " " + y + " " + width + " " + height + " "
-				+ color + " " + strokeWidth + " " + fill + "\n";
+		return "SHAPE " + shapeType + " " + x + " " + y + " " + width + " "
+				+ height + " " + color + " " + strokeWidth + " " + fill + "\n";
 	}
 
 	@Override

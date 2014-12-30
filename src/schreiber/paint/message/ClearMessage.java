@@ -10,7 +10,7 @@ public class ClearMessage implements PaintMessage {
 
 	@Override
 	public String toString() {
-		return "ClearMessage\n";
+		return "CLEAR\n";
 	}
 
 	@Override

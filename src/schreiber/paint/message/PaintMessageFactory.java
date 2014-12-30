@@ -7,7 +7,7 @@ public class PaintMessageFactory {
 	public PaintMessage getMessage(String s) {
 		String[] info = s.split(" ");
 		switch (info[0]) {
-		case "LineMessage":
+		case "LINE":
 			int x1 = Integer.valueOf(info[1]);
 			int y1 = Integer.valueOf(info[2]);
 			int x2 = Integer.valueOf(info[3]);
@@ -17,8 +17,8 @@ public class PaintMessageFactory {
 			paintMessage = new LineMessage(x1, y1, x2, y2, lineColor,
 					lineStrokeWidth);
 			break;
-		case "ShapeMessage":
-			String shapeType = info[1];
+		case "SHAPE":
+			ShapeType shapeType = ShapeType.valueOf(info[1]);
 			int shapeX = Integer.valueOf(info[2]);
 			int shapeY = Integer.valueOf(info[3]);
 			int width = Integer.valueOf(info[4]);
@@ -29,10 +29,10 @@ public class PaintMessageFactory {
 			paintMessage = new ShapeMessage(shapeType, shapeX, shapeY, width,
 					height, shapeColor, shapeStrokeWidth, fill);
 			break;
-		case "ClearMessage":
+		case "CLEAR":
 			paintMessage = new ClearMessage();
 			break;
-		case "BucketFillMessage":
+		case "BUCKET_FILL":
 			int bucketX = Integer.valueOf(info[1]);
 			int bucketY = Integer.valueOf(info[2]);
 			int bucketColor = Integer.valueOf(info[3]);
