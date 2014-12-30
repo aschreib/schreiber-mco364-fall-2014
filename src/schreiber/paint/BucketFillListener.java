@@ -8,9 +8,12 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import schreiber.paint.message.BucketFillMessage;
+
 public class BucketFillListener implements DrawListener {
 
 	private Canvas canvas;
+	private Paint paint;
 
 	private int x, y;
 	private Color color;
@@ -18,8 +21,9 @@ public class BucketFillListener implements DrawListener {
 	private BufferedImage image;
 	private int colorClicked;
 
-	public BucketFillListener(Canvas canvas) {
+	public BucketFillListener(Canvas canvas, Paint paint) {
 		this.canvas = canvas;
+		this.paint = paint;
 		image = canvas.getBufferedImage();
 	}
 
@@ -85,7 +89,9 @@ public class BucketFillListener implements DrawListener {
 		color = canvas.getColor();
 		colorRGB = color.getRGB();
 		colorClicked = image.getRGB(x, y);
-		Fill(x, y, colorRGB, colorClicked);
+		// Fill(x, y, colorRGB, colorClicked);
+		BucketFillMessage message = new BucketFillMessage(x, y, colorRGB);
+		canvas.getModule().sendMessage(message);
 		canvas.repaint();
 	}
 

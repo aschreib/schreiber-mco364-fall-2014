@@ -1,5 +1,7 @@
 package schreiber.paint.message;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class ShapeMessage implements PaintMessage {
@@ -99,6 +101,26 @@ public class ShapeMessage implements PaintMessage {
 	@Override
 	public void apply(Graphics2D g) {
 		// TODO Auto-generated method stub
+		g.setColor(new Color(color));
+		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND,
+				BasicStroke.JOIN_ROUND));
+
+		switch (shapeType) {
+		case OVAL:
+			if (fill) {
+				g.fillOval(x, y, width, height);
+			} else {
+				g.drawOval(x, y, width, height);
+			}
+			break;
+		case RECT:
+			if (fill) {
+				g.fillRect(x, y, width, height);
+			} else {
+				g.drawRect(x, y, width, height);
+			}
+			break;
+		}
 
 	}
 

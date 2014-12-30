@@ -5,14 +5,18 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import schreiber.paint.message.LineMessage;
+
 public class LineListener implements DrawListener {
 
 	private Canvas canvas;
+	private Paint paint;
 
 	private int startX, startY, endX, endY;
 
-	public LineListener(Canvas canvas) {
+	public LineListener(Canvas canvas, Paint paint) {
 		this.canvas = canvas;
+		this.paint = paint;
 	}
 
 	@Override
@@ -54,7 +58,10 @@ public class LineListener implements DrawListener {
 		g.setColor(canvas.getColor());
 		g.setStroke(new BasicStroke(canvas.getStrokeWidth(),
 				BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-		g.drawLine(startX, startY, endX, endY);
+		// g.drawLine(startX, startY, endX, endY);
+		LineMessage message = new LineMessage(startX, startY, endX, endY,
+				canvas.getColor().getRGB(), canvas.getStrokeWidth());
+		canvas.getModule().sendMessage(message);
 		canvas.cleared(true);
 		canvas.repaint();
 

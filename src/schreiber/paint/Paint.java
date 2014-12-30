@@ -18,8 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import schreiber.paint.message.NetworkModule;
-import schreiber.paint.message.OnlineNetworkModule;
 import schreiber.paint.message.PaintClient;
 
 public class Paint extends JFrame implements ChangeListener {
@@ -31,16 +29,17 @@ public class Paint extends JFrame implements ChangeListener {
 	private JButton clearButton;
 	private JLabel strokeLabel;
 	private DrawListener drawListener;
-	private NetworkModule module;
+	private PaintClient client;
 
-	public Paint() {
+	public Paint() throws UnknownHostException, IOException {
 		setTitle("Paint");
 		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		// setLayout(new BorderLayout()); - it's default
 
-		final Canvas canvas = new Canvas();
+		client = new PaintClient();
+		final Canvas canvas = new Canvas(this);
 
 		setChooseButton(new JButton("Choose Color"));
 		getChooseButton().addActionListener(new ActionListener() {
@@ -48,7 +47,8 @@ public class Paint extends JFrame implements ChangeListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Color color = JColorChooser.showDialog(canvas, "Choose Color", Color.BLACK);
+				Color color = JColorChooser.showDialog(canvas, "Choose Color",
+						Color.BLACK);
 				if (color != null) {
 					canvas.setColor(color);
 					getChooseButton().setForeground(canvas.getColor());
@@ -56,7 +56,8 @@ public class Paint extends JFrame implements ChangeListener {
 
 			}
 		});
-		setStrokeLabel(new JLabel("Current Stroke Width:" + canvas.getStrokeWidth()));
+		setStrokeLabel(new JLabel("Current Stroke Width:"
+				+ canvas.getStrokeWidth()));
 		getStrokeLabel().setHorizontalAlignment(0);
 		clearButton = new JButton("Clear Screen");
 		clearButton.addActionListener(new ActionListener() {
@@ -76,19 +77,24 @@ public class Paint extends JFrame implements ChangeListener {
 		infoPanelBottom.add(clearButton);
 
 		JButton pencilButton = new JButton("Pencil");
-		pencilButton.addActionListener(new ShapeButtonListener(canvas, 1));
+		pencilButton
+				.addActionListener(new ShapeButtonListener(this, canvas, 1));
 		JButton lineButton = new JButton("Line");
-		lineButton.addActionListener(new ShapeButtonListener(canvas, 2));
+		lineButton.addActionListener(new ShapeButtonListener(this, canvas, 2));
 		JButton rectangleButton = new JButton("Rectangle");
-		rectangleButton.addActionListener(new ShapeButtonListener(canvas, 3));
+		rectangleButton.addActionListener(new ShapeButtonListener(this, canvas,
+				3));
 		JButton ovalButton = new JButton("Oval");
-		ovalButton.addActionListener(new ShapeButtonListener(canvas, 4));
+		ovalButton.addActionListener(new ShapeButtonListener(this, canvas, 4));
 		JButton fillRectangleButton = new JButton("Fill Rectangle");
-		fillRectangleButton.addActionListener(new ShapeButtonListener(canvas, 5));
+		fillRectangleButton.addActionListener(new ShapeButtonListener(this,
+				canvas, 5));
 		JButton fillOvalButton = new JButton("Fill Oval");
-		fillOvalButton.addActionListener(new ShapeButtonListener(canvas, 6));
+		fillOvalButton.addActionListener(new ShapeButtonListener(this, canvas,
+				6));
 		JButton bucketFillButton = new JButton("Bucket Fill");
-		bucketFillButton.addActionListener(new ShapeButtonListener(canvas, 7));
+		bucketFillButton.addActionListener(new ShapeButtonListener(this,
+				canvas, 7));
 
 		JPanel infoPanelTop = new JPanel();
 		infoPanelTop.setLayout(new GridLayout());
@@ -122,17 +128,16 @@ public class Paint extends JFrame implements ChangeListener {
 	public void setMouseMotionListener(MouseMotionListener m) {
 	}
 
-	public static void main(String[] args) throws UnknownHostException, IOException {
-		NetworkModule onlineModule = new OnlineNetworkModule();
-		// NetworkModule offlineModule = new LoopbackNetworkModule();
-		PaintClient client = new PaintClient();
+	public static void main(String[] args) throws UnknownHostException,
+			IOException {
 		Paint paintWindow = new Paint();
 		paintWindow.setVisible(true);
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		Color newColor = JColorChooser.showDialog(colorChooser, "Choose Color", Color.BLACK);
+		Color newColor = JColorChooser.showDialog(colorChooser, "Choose Color",
+				Color.BLACK);
 		if (newColor != null) {
 		}
 	}
@@ -158,12 +163,9 @@ public class Paint extends JFrame implements ChangeListener {
 		this.strokeLabel = strokeLabel;
 	}
 
-	public NetworkModule getModule() {
-		return module;
-	}
-
-	public void setModule(NetworkModule module) {
-		this.module = module;
+	public PaintClient getClient() {
+		// TODO Auto-generated method stub
+		return client;
 	}
 
 }

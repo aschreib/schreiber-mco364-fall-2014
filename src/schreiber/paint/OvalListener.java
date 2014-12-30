@@ -5,14 +5,19 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import schreiber.paint.message.ShapeMessage;
+import schreiber.paint.message.ShapeType;
+
 public class OvalListener implements DrawListener {
 
 	private Canvas canvas;
+	private Paint paint;
 
 	private int startX, startY, endX, endY, width, height;
 
-	public OvalListener(Canvas canvas) {
+	public OvalListener(Canvas canvas, Paint paint) {
 		this.canvas = canvas;
+		this.paint = paint;
 	}
 
 	@Override
@@ -57,7 +62,11 @@ public class OvalListener implements DrawListener {
 		g.setColor(canvas.getColor());
 		g.setStroke(new BasicStroke(canvas.getStrokeWidth(),
 				BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-		g.drawOval(x1, y1, width, height);
+		// g.drawOval(x1, y1, width, height);
+		ShapeMessage message = new ShapeMessage(ShapeType.OVAL, x1, y1, width,
+				height, canvas.getColor().getRGB(), canvas.getStrokeWidth(),
+				false);
+		canvas.getModule().sendMessage(message);
 		canvas.cleared(true);
 		canvas.repaint();
 	}

@@ -8,6 +8,11 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
+import schreiber.paint.message.LineMessage;
+import schreiber.paint.message.NetworkModule;
+import schreiber.paint.message.OnlineNetworkModule;
+import schreiber.paint.message.PaintClient;
+
 public class Canvas extends JComponent {
 
 	private static final long serialVersionUID = 5557512110330206586L;
@@ -18,12 +23,19 @@ public class Canvas extends JComponent {
 	private boolean cleared;
 	private Color color = Color.BLACK;
 	private int strokeWidth = 3;
+	private Paint paint;
+	private NetworkModule module;
+	private PaintClient client;
 
 	private DrawListener listener = new PencilListener(this);
 	private BufferedImage image;
 
-	public Canvas() {
+	public Canvas(Paint paint) {
+		this.paint = paint;
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+		client = paint.getClient();
+		setModule(new OnlineNetworkModule(client));
+		// setModule(new LoopbackNetworkModule(this));
 	}
 
 	@Override
@@ -54,9 +66,13 @@ public class Canvas extends JComponent {
 	public void setPoint(int x, int y) {
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.setColor(color);
-		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND,
+				BasicStroke.JOIN_ROUND));
 		if (!clicked) {
-			g.drawLine(x, y, oldX, oldY);
+			// g.drawLine(x, y, oldX, oldY);
+			LineMessage message = new LineMessage(x, y, oldX, oldY,
+					color.getRGB(), strokeWidth);
+			getModule().sendMessage(message);
 		}
 		oldX = x;
 		oldY = y;
@@ -93,5 +109,13 @@ public class Canvas extends JComponent {
 		cleared(true);
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		repaint();
+	}
+
+	public NetworkModule getModule() {
+		return module;
+	}
+
+	public void setModule(NetworkModule module) {
+		this.module = module;
 	}
 }

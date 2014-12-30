@@ -5,14 +5,19 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import schreiber.paint.message.ShapeMessage;
+import schreiber.paint.message.ShapeType;
+
 public class RectangleListener implements DrawListener {
 
 	private Canvas canvas;
+	private Paint paint;
 
 	private Integer startX, startY, endX, endY, width, height;
 
-	public RectangleListener(Canvas canvas) {
+	public RectangleListener(Canvas canvas, Paint paint) {
 		this.canvas = canvas;
+		this.paint = paint;
 	}
 
 	@Override
@@ -56,7 +61,11 @@ public class RectangleListener implements DrawListener {
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.setColor(canvas.getColor());
 		g.setStroke(new BasicStroke(canvas.getStrokeWidth()));
-		g.drawRect(startX, startY, width, height);
+		// g.drawRect(startX, startY, width, height);
+		ShapeMessage message = new ShapeMessage(ShapeType.RECT, startX, startY,
+				width, height, canvas.getColor().getRGB(),
+				canvas.getStrokeWidth(), false);
+		canvas.getModule().sendMessage(message);
 		canvas.cleared(true);
 		canvas.repaint();
 	}

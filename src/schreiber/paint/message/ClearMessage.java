@@ -2,7 +2,11 @@ package schreiber.paint.message;
 
 import java.awt.Graphics2D;
 
+import schreiber.paint.Canvas;
+
 public class ClearMessage implements PaintMessage {
+
+	private Canvas canvas;
 
 	public ClearMessage() {
 
@@ -16,7 +20,7 @@ public class ClearMessage implements PaintMessage {
 	@Override
 	public void apply(Graphics2D g) {
 		// TODO Auto-generated method stub
-
+		canvas.clearCanvas();
 	}
 
 }

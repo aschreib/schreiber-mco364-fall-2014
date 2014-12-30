@@ -5,11 +5,13 @@ import java.awt.event.ActionListener;
 
 public class ShapeButtonListener implements ActionListener {
 
+	private Paint paint;
 	private Canvas canvas;
 	private int buttonNum;
 	private DrawListener listener;
 
-	public ShapeButtonListener(Canvas c, int buttonNum) {
+	public ShapeButtonListener(Paint p, Canvas c, int buttonNum) {
+		this.paint = p;
 		this.canvas = c;
 		this.buttonNum = buttonNum;
 	}
@@ -25,22 +27,22 @@ public class ShapeButtonListener implements ActionListener {
 			listener = new PencilListener(canvas);
 			break;
 		case 2:
-			listener = new LineListener(canvas);
+			listener = new LineListener(canvas, paint);
 			break;
 		case 3:
-			listener = new RectangleListener(canvas);
+			listener = new RectangleListener(canvas, paint);
 			break;
 		case 4:
-			listener = new OvalListener(canvas);
+			listener = new OvalListener(canvas, paint);
 			break;
 		case 5:
-			listener = new FillRectangleListener(canvas);
+			listener = new FillRectangleListener(canvas, paint);
 			break;
 		case 6:
-			listener = new FillOvalListener(canvas);
+			listener = new FillOvalListener(canvas, paint);
 			break;
 		case 7:
-			listener = new BucketFillListener(canvas);
+			listener = new BucketFillListener(canvas, paint);
 		}
 
 		canvas.setDrawListener(listener);
