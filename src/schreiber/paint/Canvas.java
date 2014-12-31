@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.swing.JComponent;
 
@@ -24,15 +26,13 @@ public class Canvas extends JComponent {
 	private Color color = Color.BLACK;
 	private int strokeWidth = 3;
 	private NetworkModule module;
-	private PaintClient client;
 
 	private DrawListener listener = new PencilListener(this);
 	private BufferedImage image;
 
-	public Canvas(Paint paint) {
+	public Canvas(Paint paint) throws UnknownHostException, IOException {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		client = paint.getClient();
-		setModule(new OnlineNetworkModule(client));
+		setModule(new OnlineNetworkModule(new PaintClient(this)));
 		// setModule(new LoopbackNetworkModule(this));
 	}
 
@@ -64,12 +64,10 @@ public class Canvas extends JComponent {
 	public void setPoint(int x, int y) {
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.setColor(color);
-		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND,
-				BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		if (!clicked) {
 			// g.drawLine(x, y, oldX, oldY);
-			LineMessage message = new LineMessage(x, y, oldX, oldY,
-					color.getRGB(), strokeWidth);
+			LineMessage message = new LineMessage(x, y, oldX, oldY, color.getRGB(), strokeWidth);
 			getModule().sendMessage(message);
 		}
 		oldX = x;

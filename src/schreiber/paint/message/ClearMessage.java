@@ -9,7 +9,6 @@ public class ClearMessage implements PaintMessage {
 	private Canvas canvas;
 
 	public ClearMessage() {
-
 	}
 
 	@Override
