@@ -10,13 +10,10 @@ import schreiber.paint.message.LineMessage;
 public class LineListener implements DrawListener {
 
 	private Canvas canvas;
-	private Paint paint;
-
 	private int startX, startY, endX, endY;
 
 	public LineListener(Canvas canvas, Paint paint) {
 		this.canvas = canvas;
-		this.paint = paint;
 	}
 
 	@Override

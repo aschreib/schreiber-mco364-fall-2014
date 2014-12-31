@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import schreiber.paint.message.ClearMessage;
 import schreiber.paint.message.PaintClient;
 
 public class Paint extends JFrame implements ChangeListener {
@@ -65,7 +66,9 @@ public class Paint extends JFrame implements ChangeListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				canvas.clearCanvas();
+				// canvas.clearCanvas();
+				ClearMessage message = new ClearMessage();
+				canvas.getModule().sendMessage(message);
 			}
 
 		});

@@ -11,13 +11,10 @@ import schreiber.paint.message.ShapeType;
 public class RectangleListener implements DrawListener {
 
 	private Canvas canvas;
-	private Paint paint;
-
 	private Integer startX, startY, endX, endY, width, height;
 
 	public RectangleListener(Canvas canvas, Paint paint) {
 		this.canvas = canvas;
-		this.paint = paint;
 	}
 
 	@Override

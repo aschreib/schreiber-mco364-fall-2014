@@ -11,13 +11,10 @@ import schreiber.paint.message.ShapeType;
 public class OvalListener implements DrawListener {
 
 	private Canvas canvas;
-	private Paint paint;
-
 	private int startX, startY, endX, endY, width, height;
 
 	public OvalListener(Canvas canvas, Paint paint) {
 		this.canvas = canvas;
-		this.paint = paint;
 	}
 
 	@Override

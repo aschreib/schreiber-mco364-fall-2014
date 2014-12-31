@@ -13,8 +13,6 @@ import schreiber.paint.message.BucketFillMessage;
 public class BucketFillListener implements DrawListener {
 
 	private Canvas canvas;
-	private Paint paint;
-
 	private int x, y;
 	private Color color;
 	private int colorRGB;
@@ -23,7 +21,6 @@ public class BucketFillListener implements DrawListener {
 
 	public BucketFillListener(Canvas canvas, Paint paint) {
 		this.canvas = canvas;
-		this.paint = paint;
 		image = canvas.getBufferedImage();
 	}
 

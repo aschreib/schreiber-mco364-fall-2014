@@ -23,7 +23,6 @@ public class Canvas extends JComponent {
 	private boolean cleared;
 	private Color color = Color.BLACK;
 	private int strokeWidth = 3;
-	private Paint paint;
 	private NetworkModule module;
 	private PaintClient client;
 
@@ -31,7 +30,6 @@ public class Canvas extends JComponent {
 	private BufferedImage image;
 
 	public Canvas(Paint paint) {
-		this.paint = paint;
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		client = paint.getClient();
 		setModule(new OnlineNetworkModule(client));
