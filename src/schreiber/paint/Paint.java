@@ -40,6 +40,7 @@ public class Paint extends JFrame implements ChangeListener {
 		// setLayout(new BorderLayout()); - it's default
 
 		final Canvas canvas = new Canvas(this);
+		client = canvas.getClient();
 
 		setChooseButton(new JButton("Choose Color"));
 		getChooseButton().addActionListener(new ActionListener() {
@@ -47,7 +48,8 @@ public class Paint extends JFrame implements ChangeListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Color color = JColorChooser.showDialog(canvas, "Choose Color", Color.BLACK);
+				Color color = JColorChooser.showDialog(canvas, "Choose Color",
+						Color.BLACK);
 				if (color != null) {
 					canvas.setColor(color);
 					getChooseButton().setForeground(canvas.getColor());
@@ -55,7 +57,8 @@ public class Paint extends JFrame implements ChangeListener {
 
 			}
 		});
-		setStrokeLabel(new JLabel("Current Stroke Width:" + canvas.getStrokeWidth()));
+		setStrokeLabel(new JLabel("Current Stroke Width:"
+				+ canvas.getStrokeWidth()));
 		getStrokeLabel().setHorizontalAlignment(0);
 		clearButton = new JButton("Clear Screen");
 		clearButton.addActionListener(new ActionListener() {
@@ -77,19 +80,24 @@ public class Paint extends JFrame implements ChangeListener {
 		infoPanelBottom.add(clearButton);
 
 		JButton pencilButton = new JButton("Pencil");
-		pencilButton.addActionListener(new ShapeButtonListener(this, canvas, 1));
+		pencilButton
+				.addActionListener(new ShapeButtonListener(this, canvas, 1));
 		JButton lineButton = new JButton("Line");
 		lineButton.addActionListener(new ShapeButtonListener(this, canvas, 2));
 		JButton rectangleButton = new JButton("Rectangle");
-		rectangleButton.addActionListener(new ShapeButtonListener(this, canvas, 3));
+		rectangleButton.addActionListener(new ShapeButtonListener(this, canvas,
+				3));
 		JButton ovalButton = new JButton("Oval");
 		ovalButton.addActionListener(new ShapeButtonListener(this, canvas, 4));
 		JButton fillRectangleButton = new JButton("Fill Rectangle");
-		fillRectangleButton.addActionListener(new ShapeButtonListener(this, canvas, 5));
+		fillRectangleButton.addActionListener(new ShapeButtonListener(this,
+				canvas, 5));
 		JButton fillOvalButton = new JButton("Fill Oval");
-		fillOvalButton.addActionListener(new ShapeButtonListener(this, canvas, 6));
+		fillOvalButton.addActionListener(new ShapeButtonListener(this, canvas,
+				6));
 		JButton bucketFillButton = new JButton("Bucket Fill");
-		bucketFillButton.addActionListener(new ShapeButtonListener(this, canvas, 7));
+		bucketFillButton.addActionListener(new ShapeButtonListener(this,
+				canvas, 7));
 
 		JPanel infoPanelTop = new JPanel();
 		infoPanelTop.setLayout(new GridLayout());
@@ -123,14 +131,17 @@ public class Paint extends JFrame implements ChangeListener {
 	public void setMouseMotionListener(MouseMotionListener m) {
 	}
 
-	public static void main(String[] args) throws UnknownHostException, IOException {
+	public static void main(String[] args) throws UnknownHostException,
+			IOException {
 		Paint paintWindow = new Paint();
 		paintWindow.setVisible(true);
+		paintWindow.getClient().getInputThread().run();
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		Color newColor = JColorChooser.showDialog(colorChooser, "Choose Color", Color.BLACK);
+		Color newColor = JColorChooser.showDialog(colorChooser, "Choose Color",
+				Color.BLACK);
 		if (newColor != null) {
 		}
 	}

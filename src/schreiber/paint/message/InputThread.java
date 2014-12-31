@@ -26,11 +26,14 @@ public class InputThread extends Thread {
 		InputStream in;
 		try {
 			in = socket.getInputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(in));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				paintMessage = messageFactory.getMessage(line);
-				paintMessage.apply((Graphics2D) canvas.getBufferedImage().getGraphics());
+				paintMessage.apply((Graphics2D) canvas.getBufferedImage()
+						.getGraphics());
+				canvas.repaint();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -12,16 +12,21 @@ public class PaintClient {
 	private Socket socket;
 	private Canvas canvas;
 	private OutputStream out;
+	private InputThread inputThread;
 
 	public PaintClient(Canvas c) throws UnknownHostException, IOException {
 		this.canvas = c;
-		socket = new Socket("192.168.117.107", 3773); // establishes
+		// socket = new Socket("192.168.117.107", 3773); // establishes
 		// connection
 		// connect to self to test:
-		// socket = new Socket("127.0.0.1", 3773); // establishes connection
+		socket = new Socket("127.0.0.1", 3773); // establishes connection
 		out = socket.getOutputStream();
-		InputThread inputThread = new InputThread(socket, canvas);
+		inputThread = new InputThread(socket, canvas);
 		// inputThread.run();
+	}
+
+	public InputThread getInputThread() {
+		return inputThread;
 	}
 
 	public OutputStream getOutputStr() {

@@ -25,6 +25,7 @@ public class Canvas extends JComponent {
 	private boolean cleared;
 	private Color color = Color.BLACK;
 	private int strokeWidth = 3;
+	private PaintClient client;
 	private NetworkModule module;
 
 	private DrawListener listener = new PencilListener(this);
@@ -32,7 +33,8 @@ public class Canvas extends JComponent {
 
 	public Canvas(Paint paint) throws UnknownHostException, IOException {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		setModule(new OnlineNetworkModule(new PaintClient(this)));
+		client = new PaintClient(this);
+		setModule(new OnlineNetworkModule(client));
 		// setModule(new LoopbackNetworkModule(this));
 	}
 
@@ -64,10 +66,12 @@ public class Canvas extends JComponent {
 	public void setPoint(int x, int y) {
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.setColor(color);
-		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND,
+				BasicStroke.JOIN_ROUND));
 		if (!clicked) {
 			// g.drawLine(x, y, oldX, oldY);
-			LineMessage message = new LineMessage(x, y, oldX, oldY, color.getRGB(), strokeWidth);
+			LineMessage message = new LineMessage(x, y, oldX, oldY,
+					color.getRGB(), strokeWidth);
 			getModule().sendMessage(message);
 		}
 		oldX = x;
@@ -113,5 +117,10 @@ public class Canvas extends JComponent {
 
 	public void setModule(NetworkModule module) {
 		this.module = module;
+	}
+
+	public PaintClient getClient() {
+		// TODO Auto-generated method stub
+		return client;
 	}
 }
