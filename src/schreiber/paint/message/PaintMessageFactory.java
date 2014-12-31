@@ -1,10 +1,14 @@
 package schreiber.paint.message;
 
+import schreiber.paint.Canvas;
+
 public class PaintMessageFactory {
 
-	PaintMessage paintMessage;
+	private PaintMessage paintMessage;
+	private Canvas canvas;
 
-	public PaintMessage getMessage(String s) {
+	public PaintMessage getMessage(String s, Canvas c) {
+		this.canvas = c;
 		String[] info = s.split(" ");
 		switch (info[0]) {
 		case "LINE":
@@ -30,13 +34,14 @@ public class PaintMessageFactory {
 					height, shapeColor, shapeStrokeWidth, fill);
 			break;
 		case "CLEAR":
-			paintMessage = new ClearMessage();
+			paintMessage = new ClearMessage(canvas);
 			break;
 		case "BUCKET_FILL":
 			int bucketX = Integer.valueOf(info[1]);
 			int bucketY = Integer.valueOf(info[2]);
 			int bucketColor = Integer.valueOf(info[3]);
-			paintMessage = new BucketFillMessage(bucketX, bucketY, bucketColor);
+			paintMessage = new BucketFillMessage(bucketX, bucketY, bucketColor,
+					canvas);
 			break;
 		}
 

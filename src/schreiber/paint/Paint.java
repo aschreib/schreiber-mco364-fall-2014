@@ -67,7 +67,7 @@ public class Paint extends JFrame implements ChangeListener {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// canvas.clearCanvas();
-				ClearMessage message = new ClearMessage();
+				ClearMessage message = new ClearMessage(canvas);
 				canvas.getModule().sendMessage(message);
 			}
 
@@ -135,8 +135,9 @@ public class Paint extends JFrame implements ChangeListener {
 			IOException {
 		Paint paintWindow = new Paint();
 		paintWindow.setVisible(true);
-		paintWindow.getClient().getInputThread().run();
-
+		if (paintWindow.getClient() != null) {
+			paintWindow.getClient().getInputThread().run();
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {

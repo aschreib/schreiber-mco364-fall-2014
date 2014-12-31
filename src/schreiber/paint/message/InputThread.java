@@ -30,10 +30,15 @@ public class InputThread extends Thread {
 					new InputStreamReader(in));
 			String line;
 			while ((line = reader.readLine()) != null) {
-				paintMessage = messageFactory.getMessage(line);
-				paintMessage.apply((Graphics2D) canvas.getBufferedImage()
-						.getGraphics());
-				canvas.repaint();
+				try {
+					paintMessage = messageFactory.getMessage(line, canvas);
+					paintMessage.apply((Graphics2D) canvas.getBufferedImage()
+							.getGraphics());
+					canvas.repaint();
+				} catch (Exception e) {
+					// ignore the bad message and keep reading
+					continue;
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

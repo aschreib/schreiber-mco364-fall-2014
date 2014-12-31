@@ -16,11 +16,12 @@ public class BucketFillMessage implements PaintMessage {
 
 	private Canvas canvas;
 
-	public BucketFillMessage(int x, int y, int color) {
+	public BucketFillMessage(int x, int y, int color, Canvas c) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.color = color;
+		this.canvas = c;
 	}
 
 	public int getX() {

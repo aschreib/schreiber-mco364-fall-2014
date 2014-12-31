@@ -87,7 +87,8 @@ public class BucketFillListener implements DrawListener {
 		colorRGB = color.getRGB();
 		colorClicked = image.getRGB(x, y);
 		// Fill(x, y, colorRGB, colorClicked);
-		BucketFillMessage message = new BucketFillMessage(x, y, colorRGB);
+		BucketFillMessage message = new BucketFillMessage(x, y, colorRGB,
+				canvas);
 		canvas.getModule().sendMessage(message);
 		canvas.repaint();
 	}

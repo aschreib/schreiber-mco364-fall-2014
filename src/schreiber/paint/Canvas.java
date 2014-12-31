@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 import javax.swing.JComponent;
 
 import schreiber.paint.message.LineMessage;
+import schreiber.paint.message.LoopbackNetworkModule;
 import schreiber.paint.message.NetworkModule;
 import schreiber.paint.message.OnlineNetworkModule;
 import schreiber.paint.message.PaintClient;
@@ -33,9 +34,13 @@ public class Canvas extends JComponent {
 
 	public Canvas(Paint paint) throws UnknownHostException, IOException {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		client = new PaintClient(this);
-		setModule(new OnlineNetworkModule(client));
-		// setModule(new LoopbackNetworkModule(this));
+		try {
+			client = new PaintClient(this);
+			setModule(new OnlineNetworkModule(client));
+		} catch (Exception e) {
+			setModule(new LoopbackNetworkModule(this));
+		}
+
 	}
 
 	@Override
