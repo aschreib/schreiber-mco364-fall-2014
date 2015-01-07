@@ -12,7 +12,7 @@ public class OnlineNetworkModule implements NetworkModule {
 
 	@Override
 	public void sendMessage(PaintMessage message) {
-		PrintWriter writer = new PrintWriter(client.getOutputStr());
+		PrintWriter writer = new PrintWriter(client.getOutputStream());
 		writer.print(message.toString());
 		writer.flush();
 	}
