@@ -57,10 +57,12 @@ public class OvalListener implements DrawListener {
 		BufferedImage image = canvas.getBufferedImage();
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		g.setColor(canvas.getColor());
-		g.setStroke(new BasicStroke(canvas.getStrokeWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke(canvas.getStrokeWidth(),
+				BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		// g.drawOval(x1, y1, width, height);
-		ShapeMessage message = new ShapeMessage(ShapeType.OVAL, x1, y1, width, height, canvas.getColor().getRGB(),
-				canvas.getStrokeWidth(), false);
+		ShapeMessage message = new ShapeMessage(ShapeType.OVAL, x1, y1, width,
+				height, canvas.getColor().getRGB(), canvas.getStrokeWidth(),
+				false);
 		canvas.getModule().sendMessage(message);
 		canvas.cleared(true);
 		canvas.repaint();
